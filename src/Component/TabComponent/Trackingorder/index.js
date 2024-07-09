@@ -56,7 +56,7 @@ const Tracking = ({route}) => {
   const onNextStep = () => {
     setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
   };
-  console.log('fklg', currentPosition);
+  
   const onPrevStep = () => {
     setCurrentPosition(prev => (prev > 0 ? prev - 1 : prev));
   };

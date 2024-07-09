@@ -14,15 +14,13 @@ import Header from '../../../Component/CustomHeader';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
-import {Dropdown} from 'react-native-element-dropdown';
-import TempletModel from '../../../Component/Model';
-import Adduser from '../../../Assests/Icon/add-user';
 import StepIndicator from 'react-native-step-indicator';
 import Addrees from './Component/Address';
 import Assign from './Component/Assign';
 import Package from './Component/Pack';
 import Summary from './Component/Summary';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Toast from 'react-native-simple-toast';
 const labels = ['Customer', 'Package', 'Assign', 'Summary'];
 const customStyles = {
   stepIndicatorSize: 30,
@@ -55,33 +53,74 @@ const ParcelCreate = ({route}) => {
   const [weight, setWeight] = useState('');
   const [deliveryperson, setDeliveryperson] = useState('');
   const [mobile, setMobile] = useState('');
-  const [templetmodel, setTempletModal] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
   const [Customerid, setCustomerId] = useState('');
   const onNextStep = () => {
-    setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
+    switch (currentPosition) {
+      case 0:
+        if (Customerid === '') {
+          Toast.show('Please select the customer');
+          return;
+        } else {
+          setCurrentPosition(prev =>
+            prev < labels.length - 1 ? prev + 1 : prev,
+          );
+        }
+        break;
+      // case 1:
+      //   if (weight === '') {
+      //     Toast.show('Please enter the weight');
+      //     return;
+      //   }else
+      //   {
+      //     setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
+      //   }
+      //   break;
+      case 1:
+        if (parceltype === '' || weight == '') {
+          parceltype == ''
+            ? Toast.show('Please select the parcel type')
+            : weight == ''
+            ? Toast.show('Please enter the weight')
+            : null
+
+          return;
+        }
+        else
+        {
+          setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
+        }
+        break;
+      case 2:
+        if (deliveryperson === '') {
+          Toast.show('Please select the delivery person');
+          return;
+        } else {
+          setCurrentPosition(prev =>
+            prev < labels.length - 1 ? prev + 1 : prev,
+          );
+        }
+        break;
+      default:
+        break;
+    }
   };
-  console.log('fklg', currentPosition);
+
   const onPrevStep = () => {
     setCurrentPosition(prev => (prev > 0 ? prev - 1 : prev));
   };
 
- 
-  
-const submit=()=>{
+  const submit = () => {
+    Alert.alert(
+      'Submit Data',
+      `Customer ID: ${Customerid}\n parcel Weight: ${weight}\nParcel Type: ${parceltype}\nDelivery PersonId: ${deliveryperson}\n Customer Address:${address}`,
+      [{text: 'OK'}],
+    );
 
-  Alert.alert(
-    'Submit Data',
-    `Customer ID: ${Customerid}\n parcel Weight: ${weight}\nParcel Type: ${parceltype}\nDelivery PersonId: ${deliveryperson}\n Customer Address:${address}`,
-    [{ text: 'OK' }]
-  );
-
-  navigation.navigate('Home');
-}
-
+    navigation.navigate('Home');
+  };
 
   const renderStepIndicator = ({position, stepStatus}) => {
-   
     const iconConfig = {
       name:
         stepStatus === 'finished'
@@ -154,19 +193,22 @@ const submit=()=>{
             <Addrees
               customerId={Customerid}
               setCustomerId={setCustomerId}
-              address={address} 
+              address={address}
               setAddress={setAddress}
               NextState={onNextStep}
             />
           ) : currentPosition + 1 == 2 ? (
             <Package
-             parceltype={parceltype}
+              parceltype={parceltype}
               setParceltype={setParceltype}
               weight={weight}
               setWeight={setWeight}
             />
           ) : currentPosition + 1 == 3 ? (
-            <Assign deliveryperson={deliveryperson} setDeliveryperson={setDeliveryperson}    />
+            <Assign
+              deliveryperson={deliveryperson}
+              setDeliveryperson={setDeliveryperson}
+            />
           ) : (
             <Summary />
           )}
@@ -179,6 +221,7 @@ const submit=()=>{
               end={{x: 1, y: 0.7}}
               style={styles.button1}>
               <TouchableOpacity
+                // disabled={Customerid==''?true:false}
                 onPress={() => {
                   currentPosition === labels.length - 1
                     ? Alert.alert(
@@ -193,7 +236,7 @@ const submit=()=>{
                           {
                             text: 'OK',
                             onPress: () => {
-                             submit()
+                              submit();
                             },
                           },
                         ],

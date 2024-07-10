@@ -180,6 +180,10 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: hp(2),
   },
+  errorText: {
+    fontSize: 12,
+    color: 'red',marginLeft:wp(4),marginTop:hp(1)
+  },
   button: {
     // backgroundColor: '#151a4b',
     height: hp(6),

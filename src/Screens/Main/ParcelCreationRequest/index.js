@@ -55,65 +55,46 @@ const ParcelCreate = ({route}) => {
   const [mobile, setMobile] = useState('');
   const [currentPosition, setCurrentPosition] = useState(0);
   const [Customerid, setCustomerId] = useState('');
+  const [customeritem,setItem]=useState('');
+  const [packing,setPacking]=useState('');
+  const [ashig,setAshign]=useState('');
   const onNextStep = () => {
-    switch (currentPosition) {
-      case 0:
-        if (Customerid === '') {
-          Toast.show('Please select the customer');
-          return;
-        } else {
-          setCurrentPosition(prev =>
-            prev < labels.length - 1 ? prev + 1 : prev,
-          );
-        }
-        break;
-      // case 1:
-      //   if (weight === '') {
-      //     Toast.show('Please enter the weight');
-      //     return;
-      //   }else
-      //   {
-      //     setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
-      //   }
-      //   break;
-      case 1:
-        if (parceltype === '' || weight == '') {
-          parceltype == ''
-            ? Toast.show('Please select the parcel type')
-            : weight == ''
-            ? Toast.show('Please enter the weight')
-            : null
-
-          return;
-        }
-        else
-        {
-          setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
-        }
-        break;
-      case 2:
-        if (deliveryperson === '') {
-          Toast.show('Please select the delivery person');
-          return;
-        } else {
-          setCurrentPosition(prev =>
-            prev < labels.length - 1 ? prev + 1 : prev,
-          );
-        }
-        break;
-      default:
-        break;
+    const stepsValidation = [
+      {
+        condition: currentPosition === 0 && Customerid === '',
+        message: 'Please select the customer',
+      },
+      {
+        condition: currentPosition === 1 && parceltype === '',
+        message: 'Please select the parcel type',
+      },
+      {
+        condition: currentPosition === 1 && weight === '',
+        message: 'Please enter the weight',
+      },
+      {
+        condition: currentPosition === 2 && deliveryperson === '',
+        message: 'Please select the delivery person',
+      },
+    ];
+  
+    for (let { condition, message } of stepsValidation) {
+      if (condition) {
+        Toast.show(message);
+        return;
+      }
     }
+  
+    setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
   };
-
   const onPrevStep = () => {
     setCurrentPosition(prev => (prev > 0 ? prev - 1 : prev));
   };
-
   const submit = () => {
+    console.log('asdsjafpof',);
     Alert.alert(
       'Submit Data',
-      `Customer ID: ${Customerid}\n parcel Weight: ${weight}\nParcel Type: ${parceltype}\nDelivery PersonId: ${deliveryperson}\n Customer Address:${address}`,
+      `Customer item: ${customeritem}\n parcel Weight: ${weight}\nParcel Type: ${parceltype}\nDelivery PersonId: ${ashig}`,
       [{text: 'OK'}],
     );
 
@@ -195,6 +176,7 @@ const ParcelCreate = ({route}) => {
               setCustomerId={setCustomerId}
               address={address}
               setAddress={setAddress}
+              setItem={setItem}
               NextState={onNextStep}
             />
           ) : currentPosition + 1 == 2 ? (
@@ -203,14 +185,21 @@ const ParcelCreate = ({route}) => {
               setParceltype={setParceltype}
               weight={weight}
               setWeight={setWeight}
+             
             />
           ) : currentPosition + 1 == 3 ? (
             <Assign
               deliveryperson={deliveryperson}
               setDeliveryperson={setDeliveryperson}
+              setItem={setAshign}
             />
           ) : (
-            <Summary />
+            <Summary 
+            item={customeritem}
+            parceltype={parceltype}
+            weight={weight}
+            ashig={ashig}
+            />
           )}
 
           {/* {currentPosition + 1 == 1 ? null : ( */}

@@ -20,10 +20,16 @@ import Adduser from '../../../../Assests/Icon/add-user';
 import TempletModel from '../../../../Component/DevliveryAddress';
 import {useNavigation} from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
-const Addrees = ({NextState,customerId,setCustomerId,address,setAddress}) => {
+const Addrees = ({
+  NextState,
+  customerId,
+  setCustomerId,
+  address,
+  setAddress,
+  setItem,
+}) => {
   //    console.log('virend,Customerid,ra......',selector);
 
- 
   const [parceltype, setParceltype] = useState('');
   const [weight, setWeight] = useState('');
   const [deliveryperson, setDeliveryperson] = useState('');
@@ -112,7 +118,8 @@ const Addrees = ({NextState,customerId,setCustomerId,address,setAddress}) => {
               value={customerId}
               onChange={item => {
                 setCustomerId(item.value);
-                setAddress(item.Addrees)
+                setAddress(item.Addrees);
+                setItem(item);
               }}
             />
           </View>
@@ -182,8 +189,6 @@ const Addrees = ({NextState,customerId,setCustomerId,address,setAddress}) => {
             </View>
           </View>
         ) : null}
-     
-
       </View>
     </View>
   );
@@ -307,14 +312,40 @@ const styles = StyleSheet.create({
 });
 
 const Data1 = [
-  {label: 'Ramesh', value: '1',
-   Addrees:'Central Mumbai Maharastra 436001'
-
+  {
+    label: 'Ramesh',
+    value: '1',
+    Addrees: 'Central Mumbai Maharastra 436001',
+    mobileNo: '9890886641',
   },
-  {label: 'Ronit', value: '2',
-    Addrees:'vijay nagar Indore MadhyaPradesh 452001'
+  {
+    label: 'Ronit',
+    value: '2',
+    Addrees: 'vijay nagar Indore MadhyaPradesh 452001',
+    mobileNo: '9890886641',
   },
-  {label: 'Admin', value: '3',
-    Addrees:'Central Pune Maharastra 435401'
+  {
+    label: 'Admin',
+    value: '3',
+    Addrees: 'Central Pune Maharastra 435401',
+    mobileNo: '9890886641',
+  },
+  {
+    label: 'Ramesh Delivery boy',
+    value: '1',
+    mobileNo: '9890886641',
+    Addrees: 'Central Mumbai Maharastra 436001',
+  },
+  {
+    label: 'Mahesh ',
+    value: '2',
+    mobileNo: '9890886656',
+    Addrees: 'Central indore MadhyaPradesh 452002',
+  },
+  {
+    label: 'John Bill',
+    value: '3',
+    mobileNo: '9890886708',
+    Addrees: 'Central pune Maharastra 436241',
   },
 ];

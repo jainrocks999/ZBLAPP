@@ -18,6 +18,7 @@ import {
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import Toast from 'react-native-simple-toast';
 const TempletModel = ({
   visi,
   sendDatatoParent,
@@ -26,13 +27,82 @@ const TempletModel = ({
 }) => {
 
   //    console.log('virendra......',selector);
-  const [customerId,setCustomerId]=useState('');
+  const [deliverypersonname,setDeliverypersonname]=useState('');
   const [address,setAddress]=useState('');
-  const [parceltype,setParceltype]=useState('');
-  const[weight,setWeight]=useState('');
-  const [deliveryperson,setDeliveryperson]=useState('');
+  const [email,setEmail]=useState('');
+ const [city,setCity]=useState('');
+ const [pincode,setPincode]=useState('');
   const [mobile,setMobile]=useState('')
 const navigation=useNavigation()
+const [errors, setErrors] = useState({});
+
+// const validate = () => {
+//   const newErrors = {};
+
+//   if (!deliverypersonname) {
+//     newErrors.deliverypersonname = 'Delivery person name is required';
+//   }
+//   if (!address) {
+//     newErrors.address = 'Address is required';
+//   }
+//   if (!email) {
+//     newErrors.email = 'Email is required';
+//   } else if (!/\S+@\S+\.\S+/.test(email)) {
+//     newErrors.email = 'Email is invalid';
+//   }
+//   if (!city) {
+//     newErrors.city = 'City is required';
+//   }
+//   if (!pincode) {
+//     newErrors.pincode = 'Pincode is required';
+//   } else if (!/^[0-9]{6}$/.test(pincode)) {
+//     newErrors.pincode = 'Pincode must be exactly 6 digits';
+//   }
+//   if (!mobile) {
+//     newErrors.mobile = 'Mobile number is required';
+//   } else if (!/^[0-9]{10}$/.test(mobile)) {
+//     newErrors.mobile = 'Mobile number must be exactly 10 digits';
+//   }
+
+//   setErrors(newErrors);
+//   return Object.keys(newErrors).length === 0;
+// };
+
+
+
+const validate = () => {
+  const validationMessages = [
+    { condition: !deliverypersonname, message: 'Delivery person name is required' },
+    { condition: !address, message: 'Address is required' },
+    { condition: !email, message: 'Email is required' },
+    { condition: email && !/\S+@\S+\.\S+/.test(email), message: 'Email is invalid' },
+    { condition: !mobile, message: 'Mobile number is required' },
+    { condition: mobile && !/^[0-9]{10}$/.test(mobile), message: 'Mobile number must be exactly 10 digits' },
+    { condition: !city, message: 'City is required' },
+    { condition: !pincode, message: 'Pincode is required' },
+    { condition: pincode && !/^[0-9]{6}$/.test(pincode), message: 'Pincode must be exactly 6 digits' }
+  ];
+
+  for (let { condition, message } of validationMessages) {
+    if (condition) {
+      Toast.show(message);
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const handleSubmit = () => {
+  if (validate()) {
+    const formData = { deliverypersonname, address, email, city, pincode, mobile };
+    console.log('Form Data:', formData);
+    // Handle form submission here, such as sending data to an API
+  }
+};
+
+
+
   return (
     <View style={[styles.container1, {flex:1}]}>
       <Modal animationType="fade" transparent visible={visi}>
@@ -70,12 +140,12 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter Delivery Person Name"
                placeholderTextColor="#8a8a87"
-                value={weight}
-                onChangeText={val => setWeight(val)}
+                value={deliverypersonname}
+                onChangeText={val => setDeliverypersonname(val)}
               />
             </View>
           </View>
-        
+          {/* {errors.deliverypersonname && <Text style={styles.errorText}>{errors.deliverypersonname}</Text>} */}
           <View style={styles.main}>
             <Text style={styles.Text1}>Delivery Person Address</Text>
             <View style={styles.main1}>
@@ -88,7 +158,7 @@ const navigation=useNavigation()
               />
             </View>
           </View>
-         
+          {/* {errors.address && <Text style={styles.errorText}>{errors.address}</Text>} */}
           <View style={styles.main}>
             <Text style={styles.Text1}>Delivery Person Email Address</Text>
             <View style={styles.main1}>
@@ -96,12 +166,12 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter Delivery Person Email"
                placeholderTextColor="#8a8a87"
-                value={weight}
-                onChangeText={val => setWeight(val)}
+                value={email}
+                onChangeText={val => setEmail(val)}
               />
             </View>
           </View>
-         
+          {/* {errors.email && <Text style={styles.errorText}>{errors.email}</Text>} */}
           <View style={styles.main}>
             <Text style={styles.Text1}>Delivery Person Mobile No.</Text>
             <View style={styles.main1}>
@@ -110,12 +180,12 @@ const navigation=useNavigation()
                 placeholder="Enter Mobile Number"
                placeholderTextColor="#8a8a87"
                 keyboardType='numeric'
-                value={weight}
+                value={mobile}
                 onChangeText={val => setMobile(val)}
               />
-            </View>
+            </View>   
           </View>
-
+          {/* {errors.mobile && <Text style={styles.errorText}>{errors.mobile}</Text>} */}
           <View style={styles.main}>
             <Text style={styles.Text1}>City</Text>
             <View style={styles.main1}>
@@ -123,12 +193,13 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter City"
                placeholderTextColor="#8a8a87"
-                keyboardType='numeric'
-                value={weight}
-                onChangeText={val => setMobile(val)}
+                // keyboardType='numeric'
+                value={city}
+                onChangeText={val => setCity(val)}
               />
             </View>
           </View>
+          {/* {errors.city && <Text style={styles.errorText}>{errors.city}</Text>} */}
           <View style={styles.main}>
             <Text style={styles.Text1}>Pincode</Text>
             <View style={styles.main1}>
@@ -137,12 +208,12 @@ const navigation=useNavigation()
                 placeholder="Enter Pincode"
                placeholderTextColor="#8a8a87"
                 keyboardType='numeric'
-                value={weight}
-                onChangeText={val => setMobile(val)}
+                value={pincode}
+                onChangeText={val => setPincode(val)}
               />
             </View>
           </View>
-         
+          {/* {errors.pincode && <Text style={styles.errorText}>{errors.pincode}</Text>} */}
           </View>
 
           <LinearGradient colors={['#151a4b', '#4b81e6','#151a4b' ]} 
@@ -150,8 +221,8 @@ const navigation=useNavigation()
                       end={{ x: 1, y: 0.7 }}
                     style={styles.button1}>
                     <TouchableOpacity
-                      onPress={() => 
-                         navigation.replace('Home')
+                      onPress={() => handleSubmit()
+                        //  navigation.replace('Home')
                        
                       }
                       style={styles.button}>
@@ -159,41 +230,10 @@ const navigation=useNavigation()
                      
                     </TouchableOpacity>
                     </LinearGradient>
-          {/* <View style={styles.button1}>
-          
-          <TouchableOpacity
-              style={styles.button}
-              underlayColor={'#e0a42a'}
-              onPress={() => close()}>
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity> */}
-            {/* <TouchableHighlight
-              style={styles.button}
-              underlayColor={'#e0a42a'}
-              onPress={() =>NextState()
-              }>
-              <Text style={styles.buttonText}>Add Delivery Address</Text>
-            </TouchableHighlight> */}
-          {/* </View> */}
+         
           
             </ScrollView>
-            {/* <View style={styles.buttomv}>
-            <TouchableOpacity
-              onPress={() => close()}
-              style={{
-                height: hp(6.3),
-                width: '99%',
-                backgroundColor: '#151a4b',
-                 alignSelf: 'center',
-                // marginTop: 5,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 30,
-                // marginBottom: hp(1),
-              }}>
-              <Text style={styles.xbtn}>Cancel</Text>
-            </TouchableOpacity>
-            </View> */}
+        
           </View>
         </View>
       </Modal>

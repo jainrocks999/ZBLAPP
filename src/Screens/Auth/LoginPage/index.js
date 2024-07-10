@@ -29,34 +29,44 @@ const Login = () => {
   const [loader, setLoader] = useState(false);
   const [visible, setVisible] = useState(true);
   const [isValid, setIsValid] = useState(true);
+  // const handleValidateEmail = async () => {
+  //   if (mobile == '') {
+  //     Toast.show('Please enter the username');
+  //   } else if (password == '') {
+  //     Toast.show('Please enter the password');
+  //   } else {
+  //     dispatch({
+  //       type: 'User_Login_Request',
+  //       url: 'api/login',
+  //       username: mobile,
+  //       password: password,
+  //       navigation,
+  //     });
+  //   }
+
+ 
+  // };
   const handleValidateEmail = async () => {
-    if (mobile == '') {
-      Toast.show('Please enter the username');
-    } else if (password == '') {
-      Toast.show('Please enter the password');
-    } else {
-      dispatch({
-        type: 'User_Login_Request',
-        url: 'api/login',
-        username: mobile,
-        password: password,
-        navigation,
-      });
+    const validationMessages = [
+      { condition: mobile === '', message: 'Please enter the username' },
+      { condition: password === '', message: 'Please enter the password' }
+    ];
+  
+    for (let { condition, message } of validationMessages) {
+      if (condition) {
+        Toast.show(message);
+        return;
+      }
     }
-
-    // if (validateEmail(mobile)) {
-    //   Alert.alert('Success', 'Email is valid');
-    // } else {
-    //   setIsValid(false);
-    //   Alert.alert('Error', 'Email is not valid');
-    // }
+    dispatch({
+      type: 'User_Login_Request',
+      url: 'api/login',
+      username: mobile,
+      password: password,
+      navigation,
+    });
   };
-
-  const validateEmail = email => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
-
+ 
   return (
     // <View >
     <LinearGradient

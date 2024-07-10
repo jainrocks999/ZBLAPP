@@ -109,6 +109,10 @@ export default StyleSheet.create({
     marginHorizontal: 11,
     marginBottom: 20,
   },
+  errorText: {
+    fontSize: 12,
+    color: 'red',marginLeft:wp(4),marginTop:hp(1)
+  },
   img: {
     height: 25,
     width: 25,

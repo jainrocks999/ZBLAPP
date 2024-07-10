@@ -18,6 +18,7 @@ import {
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import Toast from 'react-native-simple-toast';
 const TempletModel = ({
   visi,
   NextState = () => {},
@@ -26,13 +27,54 @@ const TempletModel = ({
 }) => {
 
   //    console.log('virendra......',selector);
-  const [customerId,setCustomerId]=useState('');
+  const [customername,setCustomername]=useState('');
   const [address,setAddress]=useState('');
-  const [parceltype,setParceltype]=useState('');
-  const[weight,setWeight]=useState('');
-  const [deliveryperson,setDeliveryperson]=useState('');
+  const [city,setCity]=useState('');
+  const[email,setEmail]=useState('');
+  const [pincode,setPincode]=useState('');
   const [mobile,setMobile]=useState('')
 const navigation=useNavigation()
+
+
+
+
+const validate = () => {
+  const validationMessages = [
+    { condition: !customername, message: 'Delivery person name is required' },
+    { condition: !address, message: 'Address is required' },
+    { condition: !email, message: 'Email is required' },
+    { condition: email && !/\S+@\S+\.\S+/.test(email), message: 'Email is invalid' },
+    { condition: !mobile, message: 'Mobile number is required' },
+    { condition: mobile && !/^[0-9]{10}$/.test(mobile), message: 'Mobile number must be exactly 10 digits' },
+    { condition: !city, message: 'City is required' },
+    { condition: !pincode, message: 'Pincode is required' },
+    { condition: pincode && !/^[0-9]{6}$/.test(pincode), message: 'Pincode must be exactly 6 digits' }
+  ];
+
+  for (let { condition, message } of validationMessages) {
+    if (condition) {
+      Toast.show(message);
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const handleSubmit = () => {
+  if (validate()) {
+    const formData = { customername, address, email, city, pincode, mobile };
+    console.log('Form Data:', formData,close());
+    // Handle form submission here, such as sending data to an API
+  close();
+  }
+};
+
+
+
+
+
+
   return (
     <View style={[styles.container1, {flex:1}]}>
       <Modal animationType="fade" transparent visible={visi}>
@@ -100,8 +142,8 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter customer name"
                placeholderTextColor="#8a8a87"
-                value={weight}
-                onChangeText={val => setWeight(val)}
+                value={customername}
+                onChangeText={val => setCustomername(val)}
               />
             </View>
           </View>
@@ -126,8 +168,8 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter Customer Email Address"
                placeholderTextColor="#8a8a87"
-                value={weight}
-                onChangeText={val => setWeight(val)}
+                value={email}
+                onChangeText={val => setEmail(val)}
               />
             </View>
           </View>
@@ -140,7 +182,7 @@ const navigation=useNavigation()
                 placeholder="Enter Mobile Number"
                placeholderTextColor="#8a8a87"
                 keyboardType='numeric'
-                value={weight}
+                value={mobile}
                 onChangeText={val => setMobile(val)}
               />
             </View>
@@ -153,9 +195,9 @@ const navigation=useNavigation()
                 style={styles.input}
                 placeholder="Enter City "
                placeholderTextColor="#8a8a87"
-                keyboardType='numeric'
-                value={weight}
-                onChangeText={val => setMobile(val)}
+                // keyboardType='numeric'
+                value={city}
+                onChangeText={val => setCity(val)}
               />
             </View>
           </View>
@@ -167,8 +209,8 @@ const navigation=useNavigation()
                 placeholder="Enter Pincode"
                placeholderTextColor="#8a8a87"
                 keyboardType='numeric'
-                value={weight}
-                onChangeText={val => setMobile(val)}
+                value={pincode}
+                onChangeText={val => setPincode(val)}
               />
             </View>
           </View>
@@ -181,7 +223,7 @@ const navigation=useNavigation()
                       end={{ x: 1, y: 0.7 }}
                     style={styles.button1}>
                     <TouchableOpacity
-                     onPress={() => close()}
+                   onPress={()=> handleSubmit()}
                       style={styles.button}>
                       <Text style={styles.buttonText}>Submit</Text>
                      

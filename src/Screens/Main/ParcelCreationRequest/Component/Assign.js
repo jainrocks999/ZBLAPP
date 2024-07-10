@@ -17,7 +17,7 @@ import {
   import Adduser from'../../../../Assests/Icon/add-user'; 
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
-const Assign = ({deliveryperson,setDeliveryperson}) => {
+const Assign = ({deliveryperson,setDeliveryperson,setItem}) => {
   const [mobile,setMobile]=useState('')
 const navigation=useNavigation()
 const [templetmodel, setTempletModal] = useState(false);
@@ -90,6 +90,7 @@ const [templetmodel, setTempletModal] = useState(false);
                       onChange={item => {
                         setMobile(item.mobileNo)
                         setDeliveryperson(item.value);
+                        setItem(item);
                       }}
                     />
                  
@@ -186,7 +187,7 @@ const styles =StyleSheet.create({
 
 
 const Data1 = [
-    {label: 'Ramesh Delivery boy',value:'1', mobileNo: '9890886641',},
-    {label: 'Mahesh ',value:'2',mobileNo: '9890886656',},
-    {label: 'John Bill',value:'3',mobileNo: '9890886708'},
+    {label: 'Ramesh Delivery boy',value:'1', mobileNo: '9890886641', Addrees:'Central Mumbai Maharastra 436001'},
+    {label: 'Mahesh ',value:'2',mobileNo: '9890886656', Addrees:'Central indore MadhyaPradesh 452002'},
+    {label: 'John Bill',value:'3',mobileNo: '9890886708', Addrees:'Central pune Maharastra 436241'},
   ];

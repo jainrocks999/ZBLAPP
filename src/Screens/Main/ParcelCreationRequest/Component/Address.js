@@ -158,7 +158,6 @@ const Addrees = ({
                       fontSize: 14,
                       color: 'grey',
                       marginLeft: wp(2),
-                      // marginTop:hp(1)
                     }}>
                     {address}
                   </Text>

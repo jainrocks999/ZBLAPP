@@ -1,44 +1,43 @@
-import { useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
-import {View,Text, Image } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import Statusbar from "../../../Component/Statusbar";
-import storage from "../../../Component/StorageAsync";
-const SpleashScreen=()=>{
-    const navigation =useNavigation();
-    useEffect(() => {
-        initial();
-      }, []);
-    
-      const initial = async () => {
-        const Token = await storage.getItem(storage.TOKEN);
-        console.log('token',Token);
-        if(!Token){
-        setTimeout(() => {
-          navigation.replace('Shipping')
-        }, 2000);
-      } else {
-        setTimeout(() => navigation.replace('Home'), 2000);
-      }
-       
-      };
-return(
-  <LinearGradient colors={['#dae4f5', '#dae4f5','#dae4f5' ]} style={{ flex: 1 }}>
-    <View style={{alignItems:'center',justifyContent:'center',}}>
-    {/* <View style={{height:300,width:300}}> */}
-    <Image style={{height:'100%',width:'100%'}}
-    resizeMode="contain"
-      source={require('../../../Assests/ZBL_logo1.png')}
-    />
-    {/* </View> */}
-    {/* <Text>SpleashScreen</Text> */}
-  </View>
-  <Statusbar/>
-  </LinearGradient>
-)
-}
-export default SpleashScreen;
+import {useNavigation} from '@react-navigation/native';
+import {useEffect} from 'react';
+import {View, Text, Image} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Statusbar from '../../../Component/Statusbar';
+import storage from '../../../Component/StorageAsync';
+const SpleashScreen = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    initial();
+  }, []);
 
+  const initial = async () => {
+    const Token = await storage.getItem(storage.TOKEN);
+    console.log('token', Token);
+    if (!Token) {
+      setTimeout(() => {
+        navigation.replace('Shipping');
+      }, 2000);
+    } else {
+      setTimeout(() => navigation.replace('Home'), 2000);
+    }
+  };
+  return (
+    <LinearGradient
+      colors={['#dae4f5', '#dae4f5', '#dae4f5']}
+      style={{flex: 1}}>
+      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        {/* <View style={{height:300,width:300}}> */}
+        <Image
+          style={{height: '100%', width: '100%'}}
+          resizeMode="contain"
+          source={require('../../../Assests/ZBL_logo1.png')}
+        />
+      </View>
+      <Statusbar />
+    </LinearGradient>
+  );
+};
+export default SpleashScreen;
 
 // import { useNavigation } from "@react-navigation/native";
 // import { useEffect } from "react";

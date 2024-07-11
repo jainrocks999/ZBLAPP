@@ -1,64 +1,76 @@
 import {} from 'react';
-import {View, Text, Image, ScrollView, TouchableHighlight, Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableHighlight,
+  Alert,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {
   heightPercent as hp,
   widthPrecent as wp,
 } from '../../../Component/Responsive';
-import FastImage from 'react-native-fast-image'
-import Arrow from "../../../Assests/Icon/Arrow.svg";
-import { useNavigation } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+import Arrow from '../../../Assests/Icon/Arrow.svg';
+import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Statusbar from '../../../Component/Statusbar';
 const Shippingparcel = () => {
-  const navigation =useNavigation()
+  const navigation = useNavigation();
   return (
-    <LinearGradient colors={['#dae4f5', '#dae4f5','#dae4f5' ]} style={{ flex: 1, }}>
+    <LinearGradient
+      colors={['#dae4f5', '#dae4f5', '#dae4f5']}
+      style={{flex: 1}}>
       <ScrollView>
-      
-          <View style={{height: hp(30), width: wp(60),justifyContent:'center',alignSelf:'center'}}>
-     <FastImage
-        style={{height:'100%',width:'auto'  }}
-        source={require('../../../Assests/Group.png')}
-          resizeMode={FastImage.resizeMode.contain}
-      />
-     
-       
-        
+        <View
+          style={{
+            height: hp(30),
+            width: wp(60),
+            justifyContent: 'center',
+            alignSelf: 'center',
+          }}>
+          <FastImage
+            style={{height: '100%', width: 'auto'}}
+            source={require('../../../Assests/Group.png')}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </View>
-        <View style={{alignItems:'center',justifyContent:'center'}}>
-<Text style={{fontSize:32,color:'#151a4b',fontWeight:'700'}}>{'Ship anything \n    anywhere'}</Text>
-<Text style={{width:'auto',textAlign:'center',marginTop:hp(3)}}>{'Send packages, track shipments and get \n swift responses to all your queries and \n issues '}</Text>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{fontSize: 32, color: '#151a4b', fontWeight: '700'}}>
+            {'Ship anything \n    anywhere'}
+          </Text>
+          <Text style={{width: 'auto', textAlign: 'center', marginTop: hp(3)}}>
+            {
+              'Send packages, track shipments and get \n swift responses to all your queries and \n issues '
+            }
+          </Text>
         </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
-           paddingHorizontal:10,marginTop:hp(15),marginBottom:hp(4)
+            paddingHorizontal: 10,
+            marginTop: hp(15),
+            marginBottom: hp(4),
           }}>
-             <LinearGradient colors={['#151a4b', '#4b81e6','#151a4b' ]} 
-                      start={{ x: 0, y: 0.5 }}
-                      end={{ x: 1, y: 0.7 }}
-             style={styles.button1}>
-      <TouchableOpacity
-        style={styles.button}
-        // underlayColor={'#e0a42a'}
-        onPress={() => navigation.navigate('Login')}
-      >
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
-    </LinearGradient>
-          {/* <View style={styles.container}>
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor={'#e0a42a'}
-        onPress={() => navigation.navigate('Login',{Name:'Delivery Login'})}
-      >
-        <Text style={styles.buttonText}>Delivery Login</Text>
-      </TouchableHighlight>
-    </View> */}
+          <LinearGradient
+            colors={['#151a4b', '#4b81e6', '#151a4b']}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.7}}
+            style={styles.button1}>
+            <TouchableOpacity
+              style={styles.button}
+              // underlayColor={'#e0a42a'}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </ScrollView>
-      <Statusbar/>
+      <Statusbar />
     </LinearGradient>
   );
 };
@@ -76,7 +88,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#fff',
     justifyContent: 'center',
     alignSelf: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     marginTop: hp(0),
   },
   button: {
@@ -93,9 +105,9 @@ const styles = StyleSheet.create({
     // shadowRadius: 2,
   },
   buttonText: {
-    color: '#fff', 
-    fontSize: 17, 
+    color: '#fff',
+    fontSize: 17,
     fontFamily: 'Montserrat-Bold',
-    // marginRight: 14 
+    // marginRight: 14
   },
 });

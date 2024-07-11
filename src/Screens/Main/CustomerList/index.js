@@ -23,7 +23,6 @@ const CustomerList = ({route}) => {
   const [templetmodel, setTempletModal] = useState(false);
   const [templetmodel1, setTempletModal1] = useState(false);
  const getDataFromChild=(data)=>{
-  console.log('datata',data);
   setTempletModal(true);
       setTempletModal1(data)
  }

@@ -44,15 +44,14 @@ const Login = () => {
   //     });
   //   }
 
- 
   // };
   const handleValidateEmail = async () => {
     const validationMessages = [
-      { condition: mobile === '', message: 'Please enter the username' },
-      { condition: password === '', message: 'Please enter the password' }
+      {condition: mobile === '', message: 'Please enter the username'},
+      {condition: password === '', message: 'Please enter the password'},
     ];
-  
-    for (let { condition, message } of validationMessages) {
+
+    for (let {condition, message} of validationMessages) {
       if (condition) {
         Toast.show(message);
         return;
@@ -66,9 +65,8 @@ const Login = () => {
       navigation,
     });
   };
- 
+
   return (
-    // <View >
     <LinearGradient
       colors={['#dae4f5', '#dae4f5', '#4b81e6']}
       style={{flex: 1}}>
@@ -156,13 +154,10 @@ const Login = () => {
               </View>
             </View>
           </View>
-
-          {/* </View> */}
           <View style={{height: 20}} />
         </KeyboardAwareScrollView>
       </ScrollView>
     </LinearGradient>
-    // </View>
   );
 };
 export default Login;

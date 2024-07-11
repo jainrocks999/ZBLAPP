@@ -84,7 +84,6 @@ const ParcelCreate = ({route}) => {
         return;
       }
     }
-  
     setCurrentPosition(prev => (prev < labels.length - 1 ? prev + 1 : prev));
   };
   const onPrevStep = () => {
@@ -108,7 +107,7 @@ const ParcelCreate = ({route}) => {
           ? 'check'
           : stepStatus === 'current'
           ? 'circle'
-          : '',
+          :null,
       color: stepStatus === 'finished' ? '#ffffff' : '#4b81e6',
       size: stepStatus === 'finished' ? 20 : 12,
     };
